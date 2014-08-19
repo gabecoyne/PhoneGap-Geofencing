@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<plugin xmlns="http://www.phonegap.com/ns/plugins/1.0"
+  xmlns:android="http://schemas.android.com/apk/res/android"
+  id="org.apache.cordova.plugin.DGGeofencing"
+  version="1">
+
+  <name>Geo Fencing Plugin</name>
+
+  <js-module src="www/DGGeofencing.js" name="DGGeofencing">
+    <clobbers target="DGGeofencing" />
+  </js-module>
+
+  <engines>
+    <engine name="cordova" version=">=3.0.0" />
+  </engines>
+
+  <!-- android -->
+  <platform name="android">
+    <config-file target="AndroidManifest.xml" parent="/manifest/application">
+      <receiver android:name="org.apache.cordova.plugin.geo.ProximityReceiver">
+        <intent-filter>
+          <action android:name="geoFencingProximityAlert"/>
+          <category android:name="android.intent.category.DEFAULT" />
+        </intent-filter>
+      </receiver>
+    </config-file>
+    <config-file target="res/xml/config.xml" parent="/cordova/plugins">
+      <plugin name="DGGeofencing" value="org.apache.cordova.plugin.geo.DGGeofencing" />
+    </config-file>
+
+    <source-file src="src/android/DGGeofencing.java" target-dir="src/org/apache/cordova/plugin/geo/" />
+    <source-file src="src/android/DGGeofencingService.java" target-dir="src/org/apache/cordova/plugin/geo/" />
+    <source-file src="src/android/LocationChangedListener.java" target-dir="src/org/apache/cordova/plugin/geo/" />
+  </platform>
+
+  <!-- ios -->
+  <platform name="ios">
+    <plugins-plist key="DGGeofencing"
+          string="DGGeofencing" />
+
+    <header-file src="src/ios/DGGeofencing.h" />
+    <header-file src="src/ios/DGGeofencingHelper.h" />
+
+    <source-file src="src/ios/DGGeofencing.m" />
+    <source-file src="src/ios/DGGeofencingHelper.m" />
+  </platform>
+</plugin>
